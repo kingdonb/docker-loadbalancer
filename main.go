@@ -155,9 +155,12 @@ defaults
 
 backend port_{{$key}}_backends
     mode tcp
+    option tcplog
+    option tcp-check
     balance leastconn
     timeout server  10800s
-	{{range .}}server {{.Name}} {{.IP}}:{{.Port}}
+    default-server inter 10s downinter 5s rise 2 fall 2 slowstart 60s maxconn 250 maxqueue 256 weight 100
+	{{range .}}server {{.Name}} {{.IP}}:{{.Port}} check
 	{{end}}
 {{end}}
 `
