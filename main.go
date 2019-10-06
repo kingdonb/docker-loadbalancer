@@ -32,7 +32,7 @@ var haproxyDesiredState bool
 func main() {
 
 	ctx := context.Background()
-	cli, err := client.NewClientWithOpts()
+	cli, err := client.NewClientWithOpts(client.WithAPIVersionNegotiation())
 	if err != nil {
 		panic(err)
 	}
